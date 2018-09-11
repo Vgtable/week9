@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <header>
+      <%if(user){%>
+        <span>欢迎</span> <h1><%=user.loginname%></h1>
+        <a href="/logout" class="op">退出</a>
+      <%}else{%>
+        <button><a href="/login" class="op">登录</a></button>
+        <button><a href="/reg" class="op">注册</a></button>
+      <%}%>
+    </header>
+    <div class="content">
+      <ul>
+      </ul>
+      <div class="textBox">
+          <textarea name="textarea" id="" class="text" value="213"></textarea>
+          <a href="#" class="btn">发送</a>
+      </div>
+    </div>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect();
+    var btn = document.querySelector(".textBox>a");
+    const loginname = document.querySelector("header>h1");
+
+    btn.addEventListener("click",function(){
+      const msgbox = document.querySelector("ul");
+      const msg = document.querySelector(".textBox>textarea");
+
+      if(loginname!=null){
+        console.log(msg.value);
+        socket.emit("msg",msg.value);
+
+        socket.on("newmsg",function(value,date){
+          const lidom  = document.createElement("li");
+          const nm = document.createElement("span");
+          const dt = document.createElement("p");
+          const newmsg = document.createElement("div");
+          nm.innerText = loginname.innerHTML;
+          dt.innerText = date;
+          newmsg.innerText = value;
+
+          lidom.appendChild(newmsg);
+          lidom.appendChild(nm);
+          lidom.appendChild(dt);
+          msgbox.appendChild(lidom);
+
+        })
+
+      }else{
+        const header = document.querySelector("header");
+        const err = document.createElement("h3");
+        err.innerHTML = "请登录";
+        header.appendChild(err);
+        console.log("未登录");
+      }
+
+    });
+  </script>
+      <!-- <script type="text/javascript">
+    const a = document.querySelector(".textBox>a");
+    const ul = document.querySelector("ul");
+    const header = document.querySelector("header");
+    a.addEventListener("click",function(event){
+      const textarea = document.querySelector("textarea").value;
+      const loginname = document.querySelector("header>h1");
+      // console.log(textarea);
+      // event.preventDefault();
+      //const href = event.target.getAttribute("href");
+      var xhr = new XMLHttpRequest();
+
+      xhr.open("POST","/liuyan");
+      xhr.setRequestHeader("Content-type","application/json;charset=UTF-8");
+
+      if(loginname!=undefined){
+        xhr.send(JSON.stringify({loanName:loginname.innerHTML,contestarea:textarea}))
+      }else {
+        xhr.send(JSON.stringify({err:"请先登录"}))
+      };
+
+      xhr.onreadystatechange = function(){
+        if(xhr.status === 200 && xhr.readyState === 4){
+          console.log(xhr.response);
+            if(loginname){
+              const li = document.createElement("li");
+              const span = document.createElement("span");
+              const p = document.createElement("p");
+              p.innerHTML = loginname.innerHTML;
+              span.innerHTML = textarea;
+              li.appendChild(p);
+              li.appendChild(span);
+              ul.appendChild(li);
+            }else{
+              const tips = document.createElement("span");
+              tips.innerHTML = xhr.response;
+              header.appendChild(tips);
+            }
+          }
+      }
+    })
+  </script> -->
+</html>

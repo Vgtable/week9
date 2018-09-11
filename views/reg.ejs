@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/login.css' />
+</head>
+<body>
+  <form action="/reg" method="post">
+    <input type="text" name="loginname" placeholder="请输入用户名" class="ipt">
+    <input type="password" name="password" placeholder="请输入密码" class="ipt">
+    <input type="password" name="enterAgain" placeholder="请再次输入密码" class="ipt">
+    <input type="submit" value="注册" class="login op">
+  </form>
+  <button><a href="/login" class="op reg">返回登录</a></button>
+</body>
+
+</html>

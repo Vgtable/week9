@@ -1,0 +1,33 @@
+form{
+  width:150px;
+}
+.ipt{
+width:240px;
+margin-top:20px;
+padding-left: 20px;
+line-height: 44px;
+border:1px solid #e6e6e6;
+border-radius: 4px;
+color:#333;
+}
+.login{
+  width:260px;
+  margin-top:40px;
+  line-height: 44px;
+  background: #333;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 16px;
+  color:#fff;
+}
+.reg{
+  display: block;
+  line-height: 44px;
+  margin-top:10px;
+  width:260px;
+  border-radius: 4px;
+  font-size: 16px;
+  color:#333;
+  border:1px solid #333;
+  text-align: center;
+}
